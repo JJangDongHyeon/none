@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.boardver3.comment.CommentMapper">
+    <insert id="postComment">
+        INSERT INTO comment
+        SET contents = #{contents},
+        writer_id = #{writerId},
+        board_id = #{boardId}
+    </insert>
+
+    <delete id="deleteComment">
+        DELETE
+        FROM comment
+        WHERE comment_id = #{commentId}
+        AND writer_id = #{writerId}
+    </delete>
+
+    <update id ="putComment">
+        UPDATE  comment
+        SET     contents = #{contents}
+        WHERE   comment_id = #{commentId}
+        AND     writer_id = #{writerId}
+    </update>
+    
+    <select id="getComments">
+        SELECT A.comment_id AS commentId,
+               A.contents,
+               A.writer_id AS writerId,
+               B.nm AS writerNm,
+               A.created_at AS createdAt
+        FROM   comment A
+        INNER JOIN USER B
+        ON   A.writer_id = B.user_id
+        WHERE A.board_id = #{boardId}
+        ORDER BY A.comment_id
+        LIMIT #{startIdx} , #{len}
+    </select>
+
+    <select id="getCommentCount">
+        SELECT COUNT(comment_id)
+        FROM comment
+        WHERE board_id = #{boardId}
+    </select>
+
+    <select id="getTotalCommentPage">
+        SELECT CEIL(COUNT(comment_id) / #{len} )
+        FROM comment
+        WHERE board_id = #{boardId}
+    </select>
+</mapper>
