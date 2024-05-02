@@ -3,13 +3,18 @@ package com.green.boardver3.comment.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.green.boardver3.common.model.Paging;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
+import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.web.bind.annotation.BindParam;
 
 import java.beans.ConstructorProperties;
 
 @Getter
+@Setter
 @ToString
 public class CommentPaging extends Paging {
+
     private long boardId;
 //    @JsonIgnore
 //    private long commentId;
@@ -22,3 +27,4 @@ public class CommentPaging extends Paging {
 //        this.commentId = commentId;
     }
 }
+
