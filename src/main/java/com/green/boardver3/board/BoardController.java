@@ -65,7 +65,8 @@ public class BoardController {
     @DeleteMapping
     @Operation(summary = "게시글 삭제" , description = "게시글 삭제를 할 수 있습니다.")
     public ResultDto<Integer> deleteBoard(@RequestParam(name = "board_id") long boardId) {
-        int result = service.deleteBoard(boardId);
+        long p = boardId;
+        int result = service.deleteBoard(p);
         return ResultDto.<Integer>builder()
                 .statusCode(HttpStatus.OK)
                 .resultMsg(HttpStatus.OK.toString())
